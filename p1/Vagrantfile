@@ -1,0 +1,25 @@
+#configuring the first VM - Server 1
+Vagrant.configure("2") do |config|
+    config.vm.define "rjobertS" do |rjobertS|
+        config.vm.box = "spox/ubuntu-arm"
+        config.vm.box_version = "1.0.0"
+        #config.vm.box = "spox/ubuntu-arm64" #"ubuntu/focal64" doesn't work on vmware for mac 
+        config.vm.network "private_network", ip: "192.168.56.110"
+        config.vm.hostname = "rjobertS"
+        config.vm.provider "vmware_fusion" do |vmw1| #replace by "virtualbox" on campus VM
+            vmw1.memory = "512"
+            vmw1.cpus = 1
+        #config.vm.provision "shell", path: "./config/rjobertS_setup.sh"
+        end
+    end
+    config.vm.define "rjobertSW" do |rjobertSW|
+        config.vm.box = "spox/ubuntu-arm"
+        config.vm.box_version = "1.0.0"
+        config.vm.network "private_network", ip: "192.168.56.111"
+        config.vm.hostname = "rjobertSW"
+        config.vm.provider "vmware_fusion" do |vmw2| #replace by "virtualbox" on campus VM
+            vmw2.memory = "512"
+            vmw2.cpus = 1
+        end
+    end
+end
