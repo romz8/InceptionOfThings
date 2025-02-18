@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playground-deployment
+  namespace: dev
+spec:
+  replicas: 2  # Change this if you want multiple instances of the Pod
+  selector:
+    matchLabels:
+      app: playground
+  template:
+    metadata:
+      labels:
+        app: playground
+    spec:
+      tolerations:
+      - key: "node.kubernetes.io/disk-pressure"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: playground
+        image: wil42/playground:v2
+        ports:
+        - containerPort: 80
