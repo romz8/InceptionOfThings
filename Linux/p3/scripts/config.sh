@@ -11,7 +11,6 @@ sudo kubectl create -f confs/namespaces/argocd.yaml
 sudo kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 #install deployment
-
 sudo kubectl apply -n dev -f confs/deployment.yaml
 sudo kubectl apply -n dev -f confs/service.yaml
 
