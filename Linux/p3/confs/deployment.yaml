@@ -1,24 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
+# confs/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: playground-deployment
-  namespace: dev
+  name: playground-app
+  namespace: argocd
 spec:
-  replicas: 2  # Change this if you want multiple instances of the Pod
-  selector:
-    matchLabels:
-      app: playground
-  template:
-    metadata:
-      labels:
-        app: playground
-    spec:
-      tolerations:
-      - key: "node.kubernetes.io/disk-pressure"
-        operator: "Exists"
-        effect: "NoSchedule"
-      containers:
-      - name: playground
-        image: wil42/playground:v2
-        ports:
-        - containerPort: 80
+  project: default
+  source:
+    repoURL: https://github.com/dtome-pe/dtome-pe_iot  #GitHub repo with Wils app 
+    targetRevision: main  # Branch name
+    path: /       # Folder containing your YAML files (deployment.yaml, service.yaml)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

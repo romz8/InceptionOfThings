@@ -1,0 +1,10 @@
+# Namespaces for 2 nodes
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
