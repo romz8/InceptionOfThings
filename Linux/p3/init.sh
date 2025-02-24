@@ -4,7 +4,6 @@ GREEN="\033[32m"
 RESET="\033[0m"
 
 #0. we first start a k3d cluster if none are present -> otherwise keep as is
-
 echo -e "${GREEN}Creating k3d cluster...${RESET}"
 if ! k3d cluster list | grep -q "iot" ; then
     sudo k3d cluster create iot --agents 2
@@ -39,4 +38,8 @@ echo "${RESET}"
 echo -e "${GREEN}Port-Forwarding ArgoCD UI...${RESET}"
 sudo kubectl port-forward svc/argocd-server -n argocd 8080:443 > /dev/null 2>&1 &
 
+# 7. Port-Forward dev 8080 to 8888
+sudo kubectl port-forward svc/playground-service -n dev 8888:8080  > /dev/null 2>&1 &
+
+#8. All ready, display argoCD
 echo -e "${GREEN}Access ArgoCD at https://localhost:8080${RESET}"
