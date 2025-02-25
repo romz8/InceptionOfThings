@@ -2,6 +2,7 @@
 
 # Define variables
 ip="192.168.56.110"
+SERVER_IP="192.168.56.110"
 
 # Update and install dependencies
 sudo apk update
@@ -30,8 +31,11 @@ echo "Server token retrieved successfully."
 echo $SERVER_TOKEN
 
 # Install K3s worker node
+export SERVER_TOKEN
+export SERVER_IP
+export INSTALL_K3S_EXEC="agent --server https://${SERVER_IP}:6443 --token ${SERVER_TOKEN} --node-ip=192.168.56.111"
 echo "Installing K3s worker node..."
-sudo curl -sfL https://get.k3s.io | K3S_URL="https://${ip}:6443" K3S_TOKEN="${SERVER_TOKEN}" sh -
+sudo curl -sfL https://get.k3s.io | sh -
 if [ $? -ne 0 ]; then
     echo "Failed to install K3s worker node. Exiting."
     exit 1
