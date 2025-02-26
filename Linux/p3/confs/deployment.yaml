@@ -7,9 +7,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/dtome-pe/dtome-pe_iot  #GitHub repo with Wils app 
+    repoURL: https://github.com/romz8/InceptionOfThings_CICD  #GitHub repo with Wils app 
     targetRevision: main  # Branch name
-    path: /       # Folder containing your YAML files (deployment.yaml, service.yaml)
+    path: manifests       # Folder containing your YAML files (deployment.yaml, service.yaml)
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
